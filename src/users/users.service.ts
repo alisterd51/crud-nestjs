@@ -17,7 +17,7 @@ export class UsersService {
     const saltOrRounds = 10;
     const user = this.usersRepository.create({
       login: createUserDto.login,
-      passowrd: await bcrypt.hash(createUserDto.login, saltOrRounds)
+      password: await bcrypt.hash(createUserDto.login, saltOrRounds)
     });
     return this.usersRepository.save(user);
   }
@@ -36,7 +36,7 @@ export class UsersService {
       id
     }, {
       login: updateUserDto.login,
-      passowrd: await bcrypt.hash(updateUserDto.login, saltOrRounds)
+      password: await bcrypt.hash(updateUserDto.login, saltOrRounds)
     }
     );
   }

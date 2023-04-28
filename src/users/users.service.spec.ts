@@ -6,7 +6,7 @@ import { User } from './entities/user.entity';
 const mockUser = new User();
 mockUser.id = 42;
 mockUser.login = 'john'
-mockUser.passowrd = 'john_pass'
+mockUser.password = 'john_pass'
 
 describe('UsersService', () => {
   let service: UsersService;
