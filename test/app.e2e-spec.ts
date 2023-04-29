@@ -63,7 +63,23 @@ describe('AppController (e2e)', () => {
     })
   })
 
-  describe('AuthController', () => {})
+  describe('AuthController', () => {
+    it('sign in', async () => {
+      const responseNewUser = await request(app.getHttpServer())
+        .post('/users')
+        .send({ login: 'arya', password: 'changeme'})
+        .expect(201);
+      const responseSignIn = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ login: 'arya', password: 'changeme'})
+        .expect(200);
+      const id = responseNewUser.body.id
+      await request(app.getHttpServer())
+        .delete('/users/' + id)
+        .expect(200);
+      return responseSignIn;
+    })
+  })
 
   describe('OpenfoodfactsController', () => {})
 });
