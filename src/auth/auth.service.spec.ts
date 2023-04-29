@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../users/entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
 
 const mockUser = new User();
 mockUser.id = 42;
@@ -16,6 +17,7 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
+        JwtService,
         UsersService,
         {
           provide: getRepositoryToken(User),
