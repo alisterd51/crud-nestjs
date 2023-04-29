@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,10 +14,13 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    if (await this.findOne({ where: { login: createUserDto.login } })) {
+      throw new ForbiddenException();
+    }
     const saltOrRounds = 10;
     const user = this.usersRepository.create({
       login: createUserDto.login,
-      password: await bcrypt.hash(createUserDto.login, saltOrRounds)
+      password: await bcrypt.hash(createUserDto.password, saltOrRounds)
     });
     return this.usersRepository.save(user);
   }

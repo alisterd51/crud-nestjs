@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { response } from 'express';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -29,32 +30,25 @@ describe('AppController (e2e)', () => {
         .expect(200);
     })
 
+    let testUserCreate: request.Response;
+
     it('create user', async () => {
-      return request(app.getHttpServer())
+      testUserCreate = await request(app.getHttpServer())
         .post('/users')
         .send({ login: 'john', password: 'changeme'})
         .expect(201);
+      return testUserCreate;
     })
 
     it('find one user', async () => {
-      const response = request(app.getHttpServer())
-        .post('/users')
-        .send({ login: 'snow', password: 'changeme'})
-        .expect(201);
-
-      const id = (await response).body.id
+      const id = testUserCreate.body.id
       return request(app.getHttpServer())
         .get('/users/' + id)
         .expect(200);
     })
 
     it('update one user', async () => {
-      const response = request(app.getHttpServer())
-        .post('/users')
-        .send({ login: 'targaryen', password: 'changeme'})
-        .expect(201);
-
-      const id = (await response).body.id
+      const id = testUserCreate.body.id
       return request(app.getHttpServer())
         .patch('/users/' + id)
         .send({ login: 'aegon' })
@@ -62,12 +56,7 @@ describe('AppController (e2e)', () => {
     })
 
     it('remove one user', async () => {
-      const response = request(app.getHttpServer())
-        .post('/users')
-        .send({ login: 'stark', password: 'changeme'})
-        .expect(201);
-
-      const id = (await response).body.id
+      const id = testUserCreate.body.id
       return request(app.getHttpServer())
         .delete('/users/' + id)
         .expect(200);
