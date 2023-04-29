@@ -15,7 +15,7 @@ export class AuthService {
     if (user === null || !await bcrypt.compare(pass, user.password)) {
       throw new UnauthorizedException();
     }
-    const payload = { login: user.login, sub: user.id };
+    const payload = { login: user.login, id: user.id };
     return {
       access_token: await this.jwtService.signAsync(payload)
     };
