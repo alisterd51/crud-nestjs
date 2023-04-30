@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { AuthModule } from './auth/auth.module';
+import { OpenFoodFactsModule } from './open-food-facts/open-food-facts.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { AuthModule } from './auth/auth.module';
       synchronize: true
     }),
     UsersModule,
-    AuthModule
+    AuthModule,
+    OpenFoodFactsModule
   ],
   controllers: [AppController],
   providers: [AppService],
