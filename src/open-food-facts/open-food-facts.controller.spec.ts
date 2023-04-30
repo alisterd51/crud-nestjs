@@ -8,7 +8,6 @@ describe('OpenFoodFactsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
       controllers: [OpenFoodFactsController],
       providers: [OpenFoodFactsService],
     }).compile();

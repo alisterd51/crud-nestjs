@@ -1,133 +1,119 @@
 import { Injectable } from '@nestjs/common';
 import { openFoodFactsDefaultOptions } from './constants';
-import { HttpService } from '@nestjs/axios';
-import { map } from 'rxjs';
+import { AxiosCacheInstance, setupCache } from 'axios-cache-interceptor';
+import axios, { AxiosInstance } from 'axios';
 
 @Injectable()
 export class OpenFoodFactsService {
   private options = openFoodFactsDefaultOptions;
   private URL = `https://${this.options.country}.openfoodfacts.org`
+  private axios: AxiosCacheInstance;
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor() {
+    this.axios = setupCache(axios);
+  }
 
-  getBrands() {
-    return this.httpService.get(`${this.URL}/brands.json`)
-    .pipe(
-      map((brands) => brands.data)
-    );
+  async getBrands() {
+    return this.axios.get(`${this.URL}/brands.json`).then((brands) => {
+      return brands.data;
+    });
   }
 
   getProduct(barcode: number) {
-    return this.httpService.get(`${this.URL}/api/2/product/${barcode}.json`)
-    .pipe(
-      map((product) => product.data)
-    );
+    return this.axios.get(`${this.URL}/api/2/product/${barcode}.json`).then((product) => {
+      return product.data;
+    });
   }
 
   getBrand(brandName: string) {
-    return this.httpService.get(`${this.URL}/brand/${brandName}.json`)
-    .pipe(
-      map((brand) => brand.data)
-    );
+    return this.axios.get(`${this.URL}/brand/${brandName}.json`).then((brands) => {
+      return brands.data;
+    });
   }
 
   getLanguages() {
-    return this.httpService.get(`${this.URL}/languages.json`)
-    .pipe(
-      map((brand) => brand.data)
-    );
+    return this.axios.get(`${this.URL}/languages.json`).then((languages) => {
+      return languages.data;
+    });
   }
 
   getLabels() {
-    return this.httpService.get(`${this.URL}}/labels.json`)
-    .pipe(
-      map((brand) => brand.data)
-    );
+    return this.axios.get(`${this.URL}}/labels.json`).then((labels) => {
+      return labels.data;
+    });
   }
 
   getAdditives() {
-    return this.httpService.get(`${this.URL}/additives.json`)
-    .pipe(
-      map((additives) => additives.data)
-    );
+    return this.axios.get(`${this.URL}/additives.json`).then((additives) => {
+      return additives.data;
+    });
   }
 
   getAllergens() {
-    return this.httpService.get(`${this.URL}/allergens.json`)
-    .pipe(
-      map((allergens) => allergens.data)
-    );
+    return this.axios.get(`${this.URL}/allergens.json`).then((allergens) => {
+      return allergens.data;
+    });
   }
 
   getCategories() {
-    return this.httpService.get(`${this.URL}/categories.json`)
-    .pipe(
-      map((categories) => categories.data)
-    );
+    return this.axios.get(`${this.URL}/categories.json`).then((categories) => {
+      return categories.data;
+    });
   }
 
   getCountries() {
-    return this.httpService.get(`${this.URL}/countries.json`)
-    .pipe(
-      map((countries) => countries.data)
-    );
+    return this.axios.get(`${this.URL}/countries.json`).then((countries) => {
+      return countries.data;
+    });
   }
 
   getEntryDates() {
-    return this.httpService.get(`${this.URL}/entry-dates.json`)
-    .pipe(
-      map((entry_dates) => entry_dates.data)
-    );
+    return this.axios.get(`${this.URL}/entry-dates.json`).then((entry_dates) => {
+      return entry_dates.data;
+    });
   }
 
   getIngredients() {
-    return this.httpService.get(`${this.URL}/ingredients.json`)
-    .pipe(
-      map((ingredients) => ingredients.data)
-    );
+    return this.axios.get(`${this.URL}/ingredients.json`).then((ingredients) => {
+      return ingredients.data;
+    });
   }
 
   getPackagings() {
-    return this.httpService.get(`${this.URL}/packaging.json`)
-    .pipe(
-      map((packagings) => packagings.data)
-    );
+    return this.axios.get(`${this.URL}/packaging.json`).then((packaging) => {
+      return packaging.data;
+    });
   }
 
   getPacakgingCodes() {
-    return this.httpService.get(`${this.URL}/packager-codes.json`)
-    .pipe(
-      map((packaging_codes) => packaging_codes.data)
-    );
+    return this.axios.get(`${this.URL}/packager-codes.json`).then((packager_codes) => {
+      return packager_codes.data;
+    });
   }
 
   getPurchasePlaces() {
-    return this.httpService.get(`${this.URL}/purchase-places.json`)
-    .pipe(
-      map((purchase_places) => purchase_places.data)
-    );
+    return this.axios.get(`${this.URL}/purchase-places.json`).then((purchase_places) => {
+      return purchase_places.data;
+    });
   }
 
   getStates() {
-    return this.httpService.get(`${this.URL}/states.json`)
-    .pipe(
-      map((states) => states.data)
-    );
+    return this.axios.get(`${this.URL}/states.json`).then((states) => {
+      return states.data;
+    });
   }
 
   getStores() {
-    return this.httpService.get(`${this.URL}/stores.json`)
-    .pipe(
-      map((stores) => stores.data)
-    );
+    return this.axios.get(`${this.URL}/stores.json`).then((stores) => {
+      return stores.data;
+    });
   }
 
   getProductsByBarcodeBeginning(beginning: string) {
     const fill = 'x'.repeat(13 - beginning.length);
     const barcode = beginning.concat(fill);
-    return this.httpService.get(`${this.URL}/code/${barcode}.json`)
-    .pipe(
-      map((products) => products.data)
-    );
+    return this.axios.get(`${this.URL}/code/${barcode}.json`).then((products) => {
+      return products.data;
+    });
   }
 }
