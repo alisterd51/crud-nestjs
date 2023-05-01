@@ -57,4 +57,5 @@ jobs:
         POSTGRES_USER: test_user
         POSTGRES_PASSWORD: test_pass
         POSTGRES_DB: test_db
+        JWT_SECRET: test_jwt_secret
     - run: npm run test:cov
