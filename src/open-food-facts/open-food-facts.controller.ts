@@ -1,7 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { OpenFoodFactsService } from './open-food-facts.service';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('open-food-facts')
+@ApiTags('open-food-facts')
 export class OpenFoodFactsController {
   constructor(private readonly openFoodFactsService: OpenFoodFactsService) {}
 
