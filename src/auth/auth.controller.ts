@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorator/public.decorator';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
@@ -9,7 +9,6 @@ import { SignInDto } from './dto/sign-in.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  //TODO: creer un DTO
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -19,7 +18,7 @@ export class AuthController {
   @ApiBody({
     type: SignInDto
   })
-  signIn(@Body() signInDto: Record<string, any>) {
+  signIn(@Body() signInDto: SignInDto) {
     return this.authService.signIn(signInDto.login, signInDto.password)
   }
 
