@@ -65,7 +65,7 @@ $ docker run --detach \
 # export postgres host ip for crud-nestjs container
 $ export POSTGRES_HOST=$(docker network inspect bridge | grep -A 4 "\"Name\": \"postgres\"" | grep "IPv4Address" | cut -d'"' -f4 | cut -d'/' -f1)
 
-# run crud-nestjs
+# run crud-nestjs container
 $ docker run --detach \
            --name crud-nestjs \
            --env POSTGRES_HOST \
