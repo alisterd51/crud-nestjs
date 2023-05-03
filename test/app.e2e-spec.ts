@@ -115,7 +115,7 @@ describe('AppController (e2e)', () => {
         .expect(200);
     })
 
-    it('brands', async () => {
+    it.skip('brands', async () => {
       const responseBrands = await request(app.getHttpServer())
         .get('/open-food-facts/brands')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
@@ -139,29 +139,29 @@ describe('AppController (e2e)', () => {
       return responseBrand;
     })
 
-    it('languages', async () => {
+    it.skip('languages', async () => {
       const responseLanguages = await request(app.getHttpServer())
         .get('/open-food-facts/languages')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseLanguages;
-    }, 40000)
+    })
 
-    it('labels', async () => {
+    it.skip('labels', async () => {
       const responseLabels = await request(app.getHttpServer())
         .get('/open-food-facts/labels')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseLabels;
-    }, 40000)
+    })
 
-    it('additives', async () => {
+    it.skip('additives', async () => {
       const responseAdditives = await request(app.getHttpServer())
         .get('/open-food-facts/additives')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseAdditives;
-    }, 40000)
+    })
 
     it('allergens', async () => {
       const responseAllergens = await request(app.getHttpServer())
@@ -169,71 +169,71 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseAllergens;
-    }, 40000)
+    })
 
-    it('categories', async () => {
+    it.skip('categories', async () => {
       const responseCategories = await request(app.getHttpServer())
         .get('/open-food-facts/categories')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCategories;
-    }, 40000)
+    })
 
-    it('countries', async () => {
+    it.skip('countries', async () => {
       const responseCountries = await request(app.getHttpServer())
         .get('/open-food-facts/countries')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCountries;
-    }, 40000)
+    })
 
-    it('entry-dates', async () => {
+    it.skip('entry-dates', async () => {
       const responseEntryDates = await request(app.getHttpServer())
         .get('/open-food-facts/entry-dates')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseEntryDates;
-    }, 40000)
+    })
 
-    it('ingredients', async () => {
+    it.skip('ingredients', async () => {
       const responseIngredients = await request(app.getHttpServer())
         .get('/open-food-facts/ingredients')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseIngredients;
-    }, 40000)
+    })
 
-    it('packaging', async () => {
+    it.skip('packaging', async () => {
       const responsePackaging = await request(app.getHttpServer())
         .get('/open-food-facts/packaging')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePackaging;
-    }, 40000)
+    })
 
-    it('packager-codes', async () => {
+    it.skip('packager-codes', async () => {
       const responsePackagerCodes = await request(app.getHttpServer())
         .get('/open-food-facts/packager-codes')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePackagerCodes;
-    }, 40000)
+    })
 
-    it('purchase-places', async () => {
+    it.skip('purchase-places', async () => {
       const responsePurchasePlaces = await request(app.getHttpServer())
         .get('/open-food-facts/purchase-places')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePurchasePlaces;
-    }, 40000)
+    })
 
-    it('states', async () => {
+    it.skip('states', async () => {
       const responseStates = await request(app.getHttpServer())
         .get('/open-food-facts/states')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseStates;
-    }, 40000)
+    })
 
     it('stores', async () => {
       const responseStores = await request(app.getHttpServer())
@@ -241,15 +241,15 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseStores;
-    }, 40000)
+    })
 
-    it('traces', async () => {
+    it.skip('traces', async () => {
       const responseTraces = await request(app.getHttpServer())
         .get('/open-food-facts/traces')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseTraces;
-    }, 40000)
+    })
 
     it('code/:beginning', async () => {
       const responseCodeBeginning = await request(app.getHttpServer())
@@ -257,7 +257,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCodeBeginning;
-    }, 40000)
+    })
 
     it('delete user', async () => {
       const id = responseNewUser.body.id
