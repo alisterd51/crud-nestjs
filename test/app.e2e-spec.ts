@@ -23,11 +23,9 @@ describe('AppController (e2e)', () => {
   });
 
   describe('UsersController', () => {
-    it('get all users',async () => {
-      return request(app.getHttpServer())
-        .get('/users')
-        .expect(200);
-    })
+    it('get all users', async () => {
+      return request(app.getHttpServer()).get('/users').expect(200);
+    });
 
     let testUserCreate: request.Response;
     let responseSignIn: request.Response;
@@ -35,39 +33,39 @@ describe('AppController (e2e)', () => {
     it('create user', async () => {
       testUserCreate = await request(app.getHttpServer())
         .post('/users')
-        .send({ login: 'john', password: 'changeme'})
+        .send({ login: 'john', password: 'changeme' })
         .expect(201);
       responseSignIn = await request(app.getHttpServer())
         .post('/auth/login')
-        .send({ login: 'john', password: 'changeme'})
+        .send({ login: 'john', password: 'changeme' })
         .expect(200);
       return testUserCreate;
-    })
+    });
 
     it('find one user', async () => {
-      const id = testUserCreate.body.id
+      const id = testUserCreate.body.id;
       return request(app.getHttpServer())
         .get('/users/' + id)
         .expect(200);
-    })
+    });
 
     it('update one user', async () => {
-      const id = testUserCreate.body.id
+      const id = testUserCreate.body.id;
       return request(app.getHttpServer())
         .patch('/users/' + id)
         .send({ login: 'aegon' })
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
-    })
+    });
 
     it('remove one user', async () => {
-      const id = testUserCreate.body.id
+      const id = testUserCreate.body.id;
       return request(app.getHttpServer())
         .delete('/users/' + id)
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
-    })
-  })
+    });
+  });
 
   describe('AuthController', () => {
     let responseNewUser: request.Response;
@@ -76,31 +74,31 @@ describe('AppController (e2e)', () => {
     it('sign in', async () => {
       responseNewUser = await request(app.getHttpServer())
         .post('/users')
-        .send({ login: 'arya', password: 'changeme'})
+        .send({ login: 'arya', password: 'changeme' })
         .expect(201);
       responseSignIn = await request(app.getHttpServer())
         .post('/auth/login')
-        .send({ login: 'arya', password: 'changeme'})
+        .send({ login: 'arya', password: 'changeme' })
         .expect(200);
       return responseSignIn;
-    })
+    });
 
     it('profile', async () => {
       const responseProfile = await request(app.getHttpServer())
-      .get('/auth/profile')
-      .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
-      .expect(200);
+        .get('/auth/profile')
+        .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
+        .expect(200);
       return responseProfile;
-    })
+    });
 
     it('remove user', async () => {
-      const id = responseNewUser.body.id
+      const id = responseNewUser.body.id;
       return request(app.getHttpServer())
         .delete('/users/' + id)
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
-    })
-  })
+    });
+  });
 
   describe('OpenfoodfactsController', () => {
     let responseNewUser: request.Response;
@@ -109,13 +107,13 @@ describe('AppController (e2e)', () => {
     it('create and signIn user', async () => {
       responseNewUser = await request(app.getHttpServer())
         .post('/users')
-        .send({ login: 'ned', password: 'changeme'})
+        .send({ login: 'ned', password: 'changeme' })
         .expect(201);
       responseSignIn = await request(app.getHttpServer())
         .post('/auth/login')
-        .send({ login: 'ned', password: 'changeme'})
+        .send({ login: 'ned', password: 'changeme' })
         .expect(200);
-    })
+    });
 
     it.skip('brands', async () => {
       const responseBrands = await request(app.getHttpServer())
@@ -123,7 +121,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseBrands;
-    })
+    });
 
     it('product/:barcode', async () => {
       const responseProduct = await request(app.getHttpServer())
@@ -131,7 +129,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseProduct;
-    })
+    });
 
     it('brand/:brandName', async () => {
       const responseBrand = await request(app.getHttpServer())
@@ -139,7 +137,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseBrand;
-    })
+    });
 
     it.skip('languages', async () => {
       const responseLanguages = await request(app.getHttpServer())
@@ -147,7 +145,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseLanguages;
-    })
+    });
 
     it.skip('labels', async () => {
       const responseLabels = await request(app.getHttpServer())
@@ -155,7 +153,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseLabels;
-    })
+    });
 
     it.skip('additives', async () => {
       const responseAdditives = await request(app.getHttpServer())
@@ -163,7 +161,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseAdditives;
-    })
+    });
 
     it.skip('allergens', async () => {
       const responseAllergens = await request(app.getHttpServer())
@@ -171,7 +169,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseAllergens;
-    })
+    });
 
     it.skip('categories', async () => {
       const responseCategories = await request(app.getHttpServer())
@@ -179,7 +177,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCategories;
-    })
+    });
 
     it.skip('countries', async () => {
       const responseCountries = await request(app.getHttpServer())
@@ -187,7 +185,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCountries;
-    })
+    });
 
     it.skip('entry-dates', async () => {
       const responseEntryDates = await request(app.getHttpServer())
@@ -195,7 +193,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseEntryDates;
-    })
+    });
 
     it.skip('ingredients', async () => {
       const responseIngredients = await request(app.getHttpServer())
@@ -203,7 +201,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseIngredients;
-    })
+    });
 
     it.skip('packaging', async () => {
       const responsePackaging = await request(app.getHttpServer())
@@ -211,7 +209,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePackaging;
-    })
+    });
 
     it.skip('packager-codes', async () => {
       const responsePackagerCodes = await request(app.getHttpServer())
@@ -219,7 +217,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePackagerCodes;
-    })
+    });
 
     it.skip('purchase-places', async () => {
       const responsePurchasePlaces = await request(app.getHttpServer())
@@ -227,7 +225,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responsePurchasePlaces;
-    })
+    });
 
     it.skip('states', async () => {
       const responseStates = await request(app.getHttpServer())
@@ -235,7 +233,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseStates;
-    })
+    });
 
     it.skip('stores', async () => {
       const responseStores = await request(app.getHttpServer())
@@ -243,7 +241,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseStores;
-    })
+    });
 
     it.skip('traces', async () => {
       const responseTraces = await request(app.getHttpServer())
@@ -251,7 +249,7 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseTraces;
-    })
+    });
 
     it('code/:beginning', async () => {
       const responseCodeBeginning = await request(app.getHttpServer())
@@ -259,14 +257,14 @@ describe('AppController (e2e)', () => {
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
       return responseCodeBeginning;
-    })
+    });
 
     it('delete user', async () => {
-      const id = responseNewUser.body.id
+      const id = responseNewUser.body.id;
       await request(app.getHttpServer())
         .delete('/users/' + id)
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
-    })
-  })
+    });
+  });
 });

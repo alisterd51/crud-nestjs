@@ -6,7 +6,7 @@ import axios from 'axios';
 @Injectable()
 export class OpenFoodFactsService {
   private options = openFoodFactsDefaultOptions;
-  private URL = `https://${this.options.country}.openfoodfacts.org`
+  private URL = `https://${this.options.country}.openfoodfacts.org`;
   private axios: AxiosCacheInstance;
 
   constructor() {
@@ -20,7 +20,9 @@ export class OpenFoodFactsService {
   }
 
   async getProduct(barcode: number) {
-    const product = await this.axios.get(`${this.URL}/api/2/product/${barcode}.json`);
+    const product = await this.axios.get(
+      `${this.URL}/api/2/product/${barcode}.json`,
+    );
     return product.data;
   }
 
@@ -75,12 +77,16 @@ export class OpenFoodFactsService {
   }
 
   async getPacakgingCodes() {
-    const packager_codes = await this.axios.get(`${this.URL}/packager-codes.json`);
+    const packager_codes = await this.axios.get(
+      `${this.URL}/packager-codes.json`,
+    );
     return packager_codes.data;
   }
 
   async getPurchasePlaces() {
-    const purchase_places = await this.axios.get(`${this.URL}/purchase-places.json`);
+    const purchase_places = await this.axios.get(
+      `${this.URL}/purchase-places.json`,
+    );
     return purchase_places.data;
   }
 

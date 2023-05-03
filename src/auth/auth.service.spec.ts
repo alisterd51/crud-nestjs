@@ -7,8 +7,8 @@ import { JwtService } from '@nestjs/jwt';
 
 const mockUser = new User();
 mockUser.id = 42;
-mockUser.login = 'john'
-mockUser.password = 'john_pass'
+mockUser.login = 'john';
+mockUser.password = 'john_pass';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -24,8 +24,8 @@ describe('AuthService', () => {
           useValue: {
             save: jest.fn().mockResolvedValue(mockUser),
             find: jest.fn().mockResolvedValue([mockUser]),
-          }
-        }
+          },
+        },
       ],
     }).compile();
 

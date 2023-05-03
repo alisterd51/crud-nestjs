@@ -4,6 +4,6 @@ import { Reflector } from '@nestjs/core';
 
 describe('AuthGuard', () => {
   it('should prevent access (unauthorized)', () => {
-    expect(new AuthGuard(new JwtService, new Reflector)).toBeDefined();
+    expect(new AuthGuard(new JwtService(), new Reflector())).toBeDefined();
   });
 });

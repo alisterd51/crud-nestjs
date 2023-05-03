@@ -1,7 +1,22 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Request,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from './decorator/public.decorator';
-import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { SignInDto } from './dto/sign-in.dto';
 
 @Controller('auth')
@@ -16,17 +31,19 @@ export class AuthController {
   @ApiOkResponse()
   @ApiUnauthorizedResponse()
   @ApiBody({
-    type: SignInDto
+    type: SignInDto,
   })
   signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.login, signInDto.password)
+    return this.authService.signIn(signInDto.login, signInDto.password);
   }
 
   @Get('profile')
   @ApiOperation({ summary: 'Get profile on an authenticated route' })
   @ApiBearerAuth()
   @ApiOkResponse()
-  @ApiUnauthorizedResponse({ description: 'Access token is missing or invalid' })
+  @ApiUnauthorizedResponse({
+    description: 'Access token is missing or invalid',
+  })
   getProfile(@Request() req) {
     return req.user;
   }

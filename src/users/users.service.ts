@@ -10,7 +10,7 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -20,7 +20,7 @@ export class UsersService {
     const saltOrRounds = 10;
     const user = this.usersRepository.create({
       login: createUserDto.login,
-      password: await bcrypt.hash(createUserDto.password, saltOrRounds)
+      password: await bcrypt.hash(createUserDto.password, saltOrRounds),
     });
     return this.usersRepository.save(user);
   }
@@ -35,12 +35,14 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const saltOrRounds = 10;
-    return this.usersRepository.update({
-      id
-    }, {
-      login: updateUserDto.login,
-      password: await bcrypt.hash(updateUserDto.login, saltOrRounds)
-    }
+    return this.usersRepository.update(
+      {
+        id,
+      },
+      {
+        login: updateUserDto.login,
+        password: await bcrypt.hash(updateUserDto.login, saltOrRounds),
+      },
     );
   }
 

@@ -1,3 +1,3 @@
 export const openFoodFactsDefaultOptions = {
-  country: 'world'
+  country: 'world',
 };

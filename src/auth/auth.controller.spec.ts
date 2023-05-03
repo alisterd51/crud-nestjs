@@ -17,12 +17,12 @@ describe('AuthController', () => {
         {
           provide: UsersService,
           useValue: {
-            getAll: jest.fn().mockResolvedValue([
-              { login: 'john', password: 'john_pass' }
-            ])
-          }
-        }
-      ]
+            getAll: jest
+              .fn()
+              .mockResolvedValue([{ login: 'john', password: 'john_pass' }]),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<AuthController>(AuthController);

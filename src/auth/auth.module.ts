@@ -14,7 +14,7 @@ import { APP_GUARD } from '@nestjs/core';
       global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '3600s' },
-    })
+    }),
   ],
   controllers: [AuthController],
   providers: [
@@ -22,8 +22,8 @@ import { APP_GUARD } from '@nestjs/core';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
-    }
+    },
   ],
-  exports: [AuthService]
+  exports: [AuthService],
 })
 export class AuthModule {}

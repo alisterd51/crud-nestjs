@@ -5,8 +5,8 @@ import { User } from './entities/user.entity';
 
 const mockUser = new User();
 mockUser.id = 42;
-mockUser.login = 'john'
-mockUser.password = 'john_pass'
+mockUser.login = 'john';
+mockUser.password = 'john_pass';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -20,8 +20,8 @@ describe('UsersService', () => {
           useValue: {
             save: jest.fn().mockResolvedValue(mockUser),
             find: jest.fn().mockResolvedValue([mockUser]),
-          }
-        }
+          },
+        },
       ],
     }).compile();
 

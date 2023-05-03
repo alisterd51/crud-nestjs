@@ -1,9 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from '../auth/decorator/public.decorator';
-import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 
 @Controller('users')
@@ -20,7 +38,7 @@ export class UsersController {
   })
   @ApiForbiddenResponse()
   @ApiBody({
-    type: CreateUserDto
+    type: CreateUserDto,
   })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
@@ -45,18 +63,26 @@ export class UsersController {
     type: User,
   })
   findOne(@Param('id', new ParseIntPipe()) id: number) {
-    return this.usersService.findOne({ where: { id }, select: { id: true, login: true } });
+    return this.usersService.findOne({
+      where: { id },
+      select: { id: true, login: true },
+    });
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update one user by id' })
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'update one user' })
-  @ApiUnauthorizedResponse({ description: 'Access token is missing or invalid' })
-  @ApiBody({
-    type: CreateUserDto
+  @ApiUnauthorizedResponse({
+    description: 'Access token is missing or invalid',
   })
-  update(@Param('id', new ParseIntPipe()) id: number, @Body() updateUserDto: UpdateUserDto) {
+  @ApiBody({
+    type: CreateUserDto,
+  })
+  update(
+    @Param('id', new ParseIntPipe()) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.usersService.update(id, updateUserDto);
   }
 
@@ -64,7 +90,9 @@ export class UsersController {
   @ApiOperation({ summary: 'Delete one user by id' })
   @ApiBearerAuth()
   @ApiOkResponse({ description: 'delete one user' })
-  @ApiUnauthorizedResponse({ description: 'Access token is missing or invalid' })
+  @ApiUnauthorizedResponse({
+    description: 'Access token is missing or invalid',
+  })
   remove(@Param('id', new ParseIntPipe()) id: number) {
     return this.usersService.remove(id);
   }

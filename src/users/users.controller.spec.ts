@@ -13,11 +13,11 @@ describe('UsersController', () => {
         {
           provide: UsersService,
           useValue: {
-            getAll: jest.fn().mockResolvedValue([
-              { login: 'john', password: 'john_pass' }
-            ])
-          }
-        }
+            getAll: jest
+              .fn()
+              .mockResolvedValue([{ login: 'john', password: 'john_pass' }]),
+          },
+        },
       ],
     }).compile();
 

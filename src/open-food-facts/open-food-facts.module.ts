@@ -4,6 +4,6 @@ import { OpenFoodFactsController } from './open-food-facts.controller';
 
 @Module({
   controllers: [OpenFoodFactsController],
-  providers: [OpenFoodFactsService]
+  providers: [OpenFoodFactsService],
 })
 export class OpenFoodFactsModule {}
