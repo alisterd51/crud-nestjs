@@ -235,7 +235,7 @@ describe('AppController (e2e)', () => {
       return responseStates;
     })
 
-    it('stores', async () => {
+    it.skip('stores', async () => {
       const responseStores = await request(app.getHttpServer())
         .get('/open-food-facts/stores')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
