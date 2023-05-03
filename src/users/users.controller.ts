@@ -34,7 +34,7 @@ export class UsersController {
     type: [User],
   })
   findAll() {
-    return this.usersService.findAll();
+    return this.usersService.findAll({ select: { id: true, login: true } });
   }
 
   @Public()
@@ -45,7 +45,7 @@ export class UsersController {
     type: User,
   })
   findOne(@Param('id', new ParseIntPipe()) id: number) {
-    return this.usersService.findOne( { where: { id } });
+    return this.usersService.findOne({ where: { id }, select: { id: true, login: true } });
   }
 
   @Patch(':id')
