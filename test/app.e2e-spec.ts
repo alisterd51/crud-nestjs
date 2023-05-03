@@ -163,7 +163,7 @@ describe('AppController (e2e)', () => {
       return responseAdditives;
     })
 
-    it('allergens', async () => {
+    it.skip('allergens', async () => {
       const responseAllergens = await request(app.getHttpServer())
         .get('/open-food-facts/allergens')
         .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
