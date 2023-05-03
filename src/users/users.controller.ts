@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Public } from '../auth/decorator/public.decorator';
-import { ApiBody, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { User } from './entities/user.entity';
 
 @Controller('users')
@@ -48,12 +48,11 @@ export class UsersController {
     return this.usersService.findOne( { where: { id } });
   }
 
-  @Public()
   @Patch(':id')
   @ApiOperation({ summary: 'Update one user by id' })
-  @ApiOkResponse({
-    description: 'update one user',
-  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'update one user' })
+  @ApiUnauthorizedResponse({ description: 'Access token is missing or invalid' })
   @ApiBody({
     type: CreateUserDto
   })
@@ -61,12 +60,11 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Public()
   @Delete(':id')
   @ApiOperation({ summary: 'Delete one user by id' })
-  @ApiOkResponse({
-    description: 'delete one user',
-  })
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'delete one user' })
+  @ApiUnauthorizedResponse({ description: 'Access token is missing or invalid' })
   remove(@Param('id', new ParseIntPipe()) id: number) {
     return this.usersService.remove(id);
   }

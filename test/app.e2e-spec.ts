@@ -30,12 +30,17 @@ describe('AppController (e2e)', () => {
     })
 
     let testUserCreate: request.Response;
+    let responseSignIn: request.Response;
 
     it('create user', async () => {
       testUserCreate = await request(app.getHttpServer())
         .post('/users')
         .send({ login: 'john', password: 'changeme'})
         .expect(201);
+      responseSignIn = await request(app.getHttpServer())
+        .post('/auth/login')
+        .send({ login: 'john', password: 'changeme'})
+        .expect(200);
       return testUserCreate;
     })
 
@@ -51,6 +56,7 @@ describe('AppController (e2e)', () => {
       return request(app.getHttpServer())
         .patch('/users/' + id)
         .send({ login: 'aegon' })
+        .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
     })
 
@@ -58,45 +64,41 @@ describe('AppController (e2e)', () => {
       const id = testUserCreate.body.id
       return request(app.getHttpServer())
         .delete('/users/' + id)
+        .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
     })
   })
 
   describe('AuthController', () => {
+    let responseNewUser: request.Response;
+    let responseSignIn: request.Response;
+
     it('sign in', async () => {
-      const responseNewUser = await request(app.getHttpServer())
+      responseNewUser = await request(app.getHttpServer())
         .post('/users')
         .send({ login: 'arya', password: 'changeme'})
         .expect(201);
-      const responseSignIn = await request(app.getHttpServer())
+      responseSignIn = await request(app.getHttpServer())
         .post('/auth/login')
         .send({ login: 'arya', password: 'changeme'})
-        .expect(200);
-      const id = responseNewUser.body.id
-      await request(app.getHttpServer())
-        .delete('/users/' + id)
         .expect(200);
       return responseSignIn;
     })
 
     it('profile', async () => {
-      const responseNewUser = await request(app.getHttpServer())
-        .post('/users')
-        .send({ login: 'arya', password: 'changeme'})
-        .expect(201);
-      const responseSignIn = await request(app.getHttpServer())
-        .post('/auth/login')
-        .send({ login: 'arya', password: 'changeme'})
-        .expect(200);
       const responseProfile = await request(app.getHttpServer())
       .get('/auth/profile')
       .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
       .expect(200);
-      const id = responseNewUser.body.id
-      await request(app.getHttpServer())
-        .delete('/users/' + id)
-        .expect(200);
       return responseProfile;
+    })
+
+    it('remove user', async () => {
+      const id = responseNewUser.body.id
+      return request(app.getHttpServer())
+        .delete('/users/' + id)
+        .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
+        .expect(200);
     })
   })
 
@@ -107,11 +109,11 @@ describe('AppController (e2e)', () => {
     it('create and signIn user', async () => {
       responseNewUser = await request(app.getHttpServer())
         .post('/users')
-        .send({ login: 'arya', password: 'changeme'})
+        .send({ login: 'ned', password: 'changeme'})
         .expect(201);
       responseSignIn = await request(app.getHttpServer())
         .post('/auth/login')
-        .send({ login: 'arya', password: 'changeme'})
+        .send({ login: 'ned', password: 'changeme'})
         .expect(200);
     })
 
@@ -263,6 +265,7 @@ describe('AppController (e2e)', () => {
       const id = responseNewUser.body.id
       await request(app.getHttpServer())
         .delete('/users/' + id)
+        .set('Authorization', 'Bearer ' + responseSignIn.body.access_token)
         .expect(200);
     })
   })
