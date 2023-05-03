@@ -35,7 +35,7 @@ export class OpenFoodFactsService {
   }
 
   async getLabels() {
-    const labels = await this.axios.get(`${this.URL}}/labels.json`);
+    const labels = await this.axios.get(`${this.URL}/labels.json`);
     return labels.data;
   }
 
