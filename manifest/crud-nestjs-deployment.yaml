@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: crud-nestjs
-        image: anclarma/crud-nestjs:1.0
+        image: anclarma/crud-nestjs:latest
         resources:
           limits:
             memory: "128Mi"
