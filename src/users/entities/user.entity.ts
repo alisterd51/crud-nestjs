@@ -4,6 +4,10 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
+  @ApiProperty({
+    example: '42',
+    description: 'id',
+  })
   id: number;
 
   @Column()
@@ -14,9 +18,5 @@ export class User {
   login: string;
 
   @Column()
-  @ApiProperty({
-    example: 'changeme',
-    description: 'password',
-  })
   password: string;
 }
